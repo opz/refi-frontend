@@ -1,9 +1,12 @@
+import React, { Component } from 'react';
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 
-
-var jazzicon = require('jazzicon')
-
-var body = document.querySelector('body')
-for(var i = 0; i < 60; i++) {
-  var el = jazzicon(100, Math.round(Math.random() * 10000000))
-  body.appendChild(el)
+class IdentIcon extends Component {
+ render() {
+    return (
+      <Jazzicon diameter={100} seed={jsNumberForAddress('0x1111111111111111111111111111111111111111')} />
+    );
+  }
 }
+
+export default IdentIcon;

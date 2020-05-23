@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
+import IdentIcon from './identicon';
+
 // const init = async () => {
 //   const provider = new HDWalletProvider(
 //     privateKey1,
@@ -50,11 +52,12 @@ componentWillMount(){
   render() {
     return (
       <div>
-        Hello !
-        Your account: {this.state.account}
+        adress: {this.state.account}
+        <IdentIcon />
       </div>
     );
   }
 }
+
 
 export default NetworkStatus;
