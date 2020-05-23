@@ -1,31 +1,8 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
+import Web3Modal from "web3modal";
 import IdentIcon from './identicon';
 
-// const init = async () => {
-//   const provider = new HDWalletProvider(
-//     privateKey1,
-//     'http://localhost:9545'
-//     );
-
-//   const web3 = new Web3(etherium.provider);
-//   const id = awit web3.eth.net.getId();
-//   const deployedNetwork = MyContract.networks[id];
-//   const contract = new web3.eth.Contract(
-//     MyContract.abi,
-//     deployedNetwork.address
-//   );
-
-//   await contract.methods
-//     .setData(10)
-//     send({from: address});
-
-//     const result = await contract.methods
-//       .getData();
-//       .call();
-
-//   console.log(result);
-// }
 
 class NetworkStatus extends Component {
 componentWillMount(){
@@ -39,7 +16,6 @@ componentWillMount(){
       const network = await web3.eth.net.getNetworkType()
       const accounts = await web3.eth.getAccounts()
       this.setState({ account: accounts[0]})
-
     }
 }
 
