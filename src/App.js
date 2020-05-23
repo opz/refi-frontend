@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-
+import NetworkStatus from './components/network_status';
 
 import './App.css';
 import Button from '@material-ui/core/Button';
@@ -13,11 +13,14 @@ class App extends Component {
   }
 
   async loadBlockchainData() {
-    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
-    const network = await web3.eth.net.getNetworkType()
-    const accounts = await web3.eth.getAccounts()
-    this.setState({ account: accounts[0]})
-    console.log(accounts)
+    if (window.ethereum) {
+      const web3 = new Web3(window.ethereum)
+      await window.ethereum.enable();
+      const network = await web3.eth.net.getNetworkType()
+      const accounts = await web3.eth.getAccounts()
+      this.setState({ account: accounts[0]})
+      console.log(accounts)
+    }
   }
 
   constructor(props) {
@@ -26,14 +29,16 @@ class App extends Component {
   }
 
 
+
   render() {
+
     return (
      <Container maxWidth="sm">
         <Button variant="contained" color="primary">
-          Hello
+          Disconnect your wallet
         </Button>
-        <p>Your account: {this.state.account}</p>
-      </Container>
+        <NetworkStatus />
+     </Container>
     );
   }
 }
