@@ -8,7 +8,6 @@ import Squarelink from "squarelink";
 import Torus from "@toruslabs/torus-embed";
 import Authereum from "authereum";
 import BurnerConnectProvider from "@burner-wallet/burner-connect-provider";
-
 import './App.css';
 import IdentIcon from './components/identicon';
 
