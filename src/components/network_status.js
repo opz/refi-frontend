@@ -7,7 +7,7 @@ import IdentIcon from './identicon';
 function NetworkStatus({account}) {
   return (
     <div>
-      adress: {account}
+      {account}
       <IdentIcon />
     </div>
   );
