@@ -1,3 +1,35 @@
+# ReFi Frontend
+
+## Installing ReFi Frontend
+
+```
+git clone git@github.com:opz/refi-core.git
+cd refi-core/
+npm install
+git submodule update --init --recursive
+npx buidler compile
+npm link
+cd -
+git clone git@github.com:opz/refi-frontend.git
+cd refi-frontend/
+yarn
+npm link refi-core
+```
+
+## Using Aave smart contracts with ReFi Frontend
+
+```
+import providerAbi from "refi-core/lib/aave-protocol/abi/LendingPoolAddressesProvider.json";
+import { LendingPoolAddressesProvider as providerAddress } from "refi-core/config/aave-protocol/kovan.json";
+
+const provider = new web3.eth.Contract(providerAbi, providerAddress);
+```
+
+## Contributors
+
+* [@svetamedved](https://github.com/svetamedved) 💻
+* [@opz](https://github.com/opz) 💻
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
