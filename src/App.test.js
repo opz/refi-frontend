@@ -1,9 +1,13 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+const isApp = require('./app');
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('isApp function exists', () => {
+  expect(typeof isApp).toBeTruthy();
+});
+
+test('is connect function exist', () => {
+  expect(typeof isConnect).toBeTruthy();
+});
+
+test('is disconnect function exist', () => {
+  expect(typeof isDisonnect).toBeTruthy();
 });

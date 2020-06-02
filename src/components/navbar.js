@@ -1,10 +1,9 @@
-import React, { useState, useEffect} from 'react';
-import Web3 from "web3";
-import Web3Modal from "web3modal";
+import React from 'react';
+import IdentIcon from './identicon';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -13,7 +12,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Header from './header';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar({account, connect, disconnect}) {
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -45,49 +45,18 @@ export default function Navbar() {
     setAnchorEl(null);
   };
 
-const providerOptions = {};
-const web3Modal = new Web3Modal({
-  network: "mainnet", // optional
-  cacheProvider: true, // optional
-  providerOptions // required
-});
-
-  const [account, setAccount] = useState('');
-  async function connect() {
-    try {
-      const provider = await web3Modal.connect();
-      const web3 = new Web3(provider);
-      const accounts = await web3.eth.getAccounts();
-      setAccount(accounts[0]);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  useEffect(() => {
-    if (window.web3) {
-      connect();
-    }
-  }, []);
-
-  return (
+    return (
     <div className={classes.root}>
-      <FormGroup>
-        <FormControlLabel
-          control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup>
       <AppBar position="static" color="inherit">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+           <Typography variant="H6" className={classes.title}>
             Photos
           </Typography>
-          {auth && (
-            <div>
+              <div>
+              {account}
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -95,8 +64,7 @@ const web3Modal = new Web3Modal({
                 onClick={handleMenu}
                 color="inherit"
               >
-              <Header account={account}/>
-              </IconButton>
+              <IdentIcon />
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -111,16 +79,17 @@ const web3Modal = new Web3Modal({
                 }}
                 open={open}
                 onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                >
+                <FormGroup>
+                  <FormControlLabel control={<Switch checked={auth} onChange={handleChange} color="default"/>}
+                    label={auth ? 'Disconnect' : 'Connect'}/>
+                </FormGroup>
               </Menu>
+               </IconButton>
             </div>
-          )}
         </Toolbar>
       </AppBar>
     </div>
   );
 }
-
 
