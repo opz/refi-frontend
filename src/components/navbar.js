@@ -33,9 +33,14 @@ export default function Navbar({account, connect, disconnect}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
+  const onConnect = (event) => {
+    connect();
   };
+
+  const onDisconnect = (event) => {
+    disconnect();
+  };
+
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -52,7 +57,7 @@ export default function Navbar({account, connect, disconnect}) {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-           <Typography variant="H6" className={classes.title}>
+           <Typography variant="h6" className={classes.title}>
             Photos
           </Typography>
               <div>
@@ -80,10 +85,8 @@ export default function Navbar({account, connect, disconnect}) {
                 open={open}
                 onClose={handleClose}
                 >
-                <FormGroup>
-                  <FormControlLabel control={<Switch checked={auth} onChange={handleChange} color="default"/>}
-                    label={auth ? 'Disconnect' : 'Connect'}/>
-                </FormGroup>
+                <MenuItem onClick={onDisconnect}>Disconnect</MenuItem>
+                <MenuItem onClick={onConnect}>Connect</MenuItem>
               </Menu>
                </IconButton>
             </div>

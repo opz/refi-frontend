@@ -1,5 +1,6 @@
 const isApp = require('./app');
 
+
 test('isApp function exists', () => {
   expect(typeof isApp).toBeTruthy();
 });
