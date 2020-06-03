@@ -12,7 +12,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-
+import Link from '@material-ui/core/Link';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,12 +35,13 @@ export default function Navbar({account, connect, disconnect}) {
 
   const onConnect = (event) => {
     connect();
+    setAuth(true);
   };
 
   const onDisconnect = (event) => {
     disconnect();
+    setAuth(false);
   };
-
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -85,8 +86,23 @@ export default function Navbar({account, connect, disconnect}) {
                 open={open}
                 onClose={handleClose}
                 >
-                <MenuItem onClick={onDisconnect}>Disconnect</MenuItem>
-                <MenuItem onClick={onConnect}>Connect</MenuItem>
+                {auth?
+                <Link
+                component="button"
+                variant="body2"
+                onClick={onDisconnect}
+                >
+                Disconnect
+                </Link>
+
+                :<Link
+                component="button"
+                variant="body2"
+                onClick={onConnect}
+                >
+                Connect
+                </Link>
+              }
               </Menu>
                </IconButton>
             </div>
