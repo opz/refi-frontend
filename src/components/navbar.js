@@ -61,7 +61,7 @@ export default function Navbar({account, connect, disconnect}) {
            <Typography variant="h6" className={classes.title}>
             ReFi
           </Typography>
-              <div>
+              <div class="account_address">
               {account}
               <IconButton
                 aria-label="account of current user"
