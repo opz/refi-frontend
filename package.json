@@ -13,6 +13,7 @@
     "@toruslabs/torus-embed": "^1.4.4",
     "@walletconnect/web3-provider": "^1.0.0-beta.47",
     "authereum": "^0.0.4-beta.156",
+    "enzyme-adapter-react-16": "^1.15.2",
     "fortmatic": "^2.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -42,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "enzyme": "^3.11.0"
   }
 }

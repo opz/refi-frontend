@@ -1,19 +1,16 @@
-const isNavbar = require('./navbar');
+import React from 'react';
+import Enzyme, {shallow} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
-{auth?
-  <Link
-  component="button"
-  variant="body2"
-  onClick={onDisconnect}
-  >
-  Disconnect
-  </Link>
+Enzyme.configure({adapter: new Adapter()});
 
-  :<Link
-  component="button"
-  variant="body2"
-  onClick={onConnect}
-  >
-  Connect
-  </Link>
-}
+import Navbar from './navbar';
+
+describe('<Navbar />', () => {
+  it('testing account address in <Navbar /> component', () => {
+    const wrapper = shallow(<Navbar />);
+    expect(wrapper.find(".account_address")).toBeDefined();
+  });
+});
+
+
