@@ -2,32 +2,15 @@ import React, {useState, useEffect} from 'react';
 import Web3 from 'web3';
 import Web3Modal from "web3modal";
 import Navbar from './components/navbar';
+import AaveContract from './components/aaveContract';
+import { initWeb3, web3Modal } from './Utils.js';
+
+
 
 function App() {
   const [auth, setAuth] = React.useState(true);
   const [account, setAccount] = useState('');
   const [web3, setWeb3] = useState(null);
-
-  const providerOptions = {};
-  const web3Modal = new Web3Modal({
-      network: "mainnet", // optional
-      cacheProvider: true, // optional
-      providerOptions // required
-  });
-
-  function initWeb3(provider) {
-      const web3: any = new Web3(provider);
-      web3.eth.extend({
-        methods: [
-            {
-              name: "chainId",
-              call: "eth_chainId",
-              outputFormatter: web3.utils.hexToNumber
-            }
-          ]
-        });
-    return web3;
-  }
 
   async function connect() {
       try {
@@ -61,6 +44,8 @@ function App() {
   return (
       <div>
           <Navbar account={account} connect={connect} disconnect={disconnect} auth={auth}/>
+
+          <AaveContract web3 = {web3} />
       </div>
   );
 }

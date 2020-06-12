@@ -4,7 +4,6 @@ import Adapter from 'enzyme-adapter-react-16';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 import renderer from 'react-test-renderer';
 Enzyme.configure({adapter: new Adapter()});
-
 import Navbar from './navbar';
 
 describe('<Navbar />', () => {
