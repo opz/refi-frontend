@@ -1,24 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Web3 from 'web3';
 import Web3Modal from "web3modal";
 import Navbar from './components/navbar';
 import AaveContract from './components/aaveContract';
-import { initWeb3, web3Modal } from './Utils.js';
-
+import { initWeb3, web3Modal, Web3Context } from './Context.js';
 
 
 function App() {
-  const [auth, setAuth] = React.useState(true);
+  const web3 = useContext(Web3Context);
+  const { dispatch } = web3;
+  const [auth, setAuth] = useState(true);
   const [account, setAccount] = useState('');
-  const [web3, setWeb3] = useState(null);
 
   async function connect() {
       try {
-          const provider = await web3Modal.connect();
-          const init = initWeb3(provider);
+          const init = initWeb3();
           const accounts = await init.eth.getAccounts();
+          dispatch({}, init);
           setAccount(accounts[0]);
-          setWeb3(init);
           setAuth(true);
       } catch (err) {
           console.error(err);
@@ -30,8 +29,8 @@ function App() {
           await web3.currentProvider.close();
       }
       await web3Modal.clearCachedProvider();
+      dispatch(null);
       setAccount('');
-      setWeb3(null);
       setAuth(false);
   };
 
@@ -43,9 +42,8 @@ function App() {
 
   return (
       <div>
-          <Navbar account={account} connect={connect} disconnect={disconnect} auth={auth}/>
-
-          <AaveContract web3 = {web3} />
+        <Navbar account={account} connect={connect} disconnect={disconnect} auth={auth}/>
+        <AaveContract />
       </div>
   );
 }
