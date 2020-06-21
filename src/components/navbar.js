@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import IdentIcon from './identicon';
 import NetworkStatus from './networkStatus';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,6 +7,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { WalletContext } from "../providers/wallet";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,8 +21,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar({account, connect, disconnect, auth}) {
+export default function Navbar({connect, disconnect}) {
   const classes = useStyles();
+  const { account } = useContext(WalletContext);
+
     return (
     <div className={classes.root}>
       <AppBar position="static" color="inherit">
@@ -35,7 +38,7 @@ export default function Navbar({account, connect, disconnect, auth}) {
         <IdentIcon />
         <div className="account_address">
           {account}
-        <NetworkStatus connect={connect} disconnect={disconnect} auth={auth} />
+        <NetworkStatus connect={connect} disconnect={disconnect} />
       </div>
       </Toolbar>
       </AppBar>
