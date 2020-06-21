@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { WalletProvider } from "./providers/wallet";
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <WalletProvider>
+      <App />
+    </WalletProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, { useContext, useState, useEffect } from 'react'
 import Web3 from 'web3';
 import Web3Modal from "web3modal";
 import Navbar from './components/navbar';
+import { WalletContext } from "./providers/wallet";
 
 function App() {
-  const [auth, setAuth] = React.useState(true);
-  const [account, setAccount] = useState('');
-  const [web3, setWeb3] = useState(null);
+  const { wallet, setWallet, setAuth } = useContext(WalletContext);
+
 
   const providerOptions = {};
   const web3Modal = new Web3Modal({
@@ -30,37 +30,34 @@ function App() {
   }
 
   async function connect() {
-      try {
-          const provider = await web3Modal.connect();
-          const init = initWeb3(provider);
-          const accounts = await init.eth.getAccounts();
-          setAccount(accounts[0]);
-          setWeb3(init);
-          setAuth(true);
-      } catch (err) {
-          console.error(err);
-      }
+    try {
+      const provider = await web3Modal.connect();
+      const init = initWeb3(provider);
+      setWallet(init);
+      setAuth(true);
+    } catch (err) {
+        console.error(err);
+    }
   };
 
   async function disconnect() {
-      if (web3 && web3.currentProvider && web3.currentProvider.close) {
-          await web3.currentProvider.close();
-      }
-      await web3Modal.clearCachedProvider();
-      setAccount('');
-      setWeb3(null);
-      setAuth(false);
+    if (wallet && wallet.currentProvider && wallet.currentProvider.close) {
+        await wallet.currentProvider.close();
+    }
+    await web3Modal.clearCachedProvider();
+    setWallet(null);
+    setAuth(false);
   };
 
   useEffect(() => {
-      if (window.web3) {
-          connect();
-      }
+    if (window.web3) {
+      connect();
+    }
   }, []);
 
   return (
       <div>
-          <Navbar account={account} connect={connect} disconnect={disconnect} auth={auth}/>
+      <Navbar connect={connect} disconnect={disconnect} />
       </div>
   );
 }

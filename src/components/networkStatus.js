@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Link from '@material-ui/core/Link';
+import { WalletContext } from "../providers/wallet";
 
-export default function NetworkStatus ({connect, disconnect, auth}) {
+export default function NetworkStatus ({connect, disconnect}) {
+  const { account, auth } = useContext(WalletContext);
+
   const onConnect = (event) => {
     connect();
   };
