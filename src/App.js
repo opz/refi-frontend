@@ -3,6 +3,7 @@ import Web3 from 'web3';
 import Web3Modal from "web3modal";
 import Navbar from './components/navbar';
 import { WalletContext } from "./providers/wallet";
+import LoanCollection from './components/loanCollection';
 
 function App() {
   const { wallet, setWallet, setAuth } = useContext(WalletContext);
@@ -58,6 +59,7 @@ function App() {
   return (
       <div>
       <Navbar connect={connect} disconnect={disconnect} />
+      <LoanCollection />
       </div>
   );
 }

@@ -36,13 +36,15 @@ const WalletProvider = props => {
           throw Error(`Error getting reserves: ${e.message}`)
       });
 
-      await lpReserves.map(async function(reserve) {
+      var lpReservesList = [];
+      const lpReservesFut = await lpReserves.map(async function(reserve) {
         const lpReserves = await lpContract.methods
         .getUserReserveData(reserve, currentAccount)
         .call()
         .then((reserveData) => {
           console.log(reserveData);
-          reservesData.push(reserveData);
+          lpReservesList.push(reserveData);
+          return reserveData;
         })
         .catch((e) => {
           throw Error(`Error getting reserves: ${e.message}`)
@@ -50,6 +52,11 @@ const WalletProvider = props => {
       });
 
       setAccount(currentAccount);
+
+      Promise.all(lpReservesFut).then(() => {
+        setReservesData(lpReservesList);
+      })
+
     } catch(err) {
       console.error(err);
     }
